@@ -20,7 +20,7 @@ pyBurner has been verified with the following versions of Python and the Afterbu
 ## Installation
 
 ~~~bash
-$ pip install --user pyburner
+$ pip install pyburner
 ~~~
 
 ## Usage
