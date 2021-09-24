@@ -27,7 +27,7 @@ $ pip install pyburner
 
 Since pyBurner utilises Python's built-in asyncio library, you will first need to ensure an event loop is running.
 Calling `asyncio.get_event_loop()` will attempt to retrieve the current event loop, and if one is not found it 
-will create a new one automatically. Please refer to the 
+will create one automatically. Please refer to the 
 [asyncio Event Loop docs](https://docs.python.org/3/library/asyncio-eventloop.html) for more information.
 
 You can then instantiate the `pyburner.Client()` class and pass the Afterburner's IP address as the only parameter:
