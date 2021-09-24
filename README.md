@@ -33,10 +33,10 @@ will create a new one automatically. Please refer to the
 You can then instantiate the `pyburner.Client()` class and pass the Afterburner's IP address as the only parameter:
 `heater = pyburner.client("192.168.0.9")`
 
-You can then use `heater.init_websocket()` to open the websocket, followed by the commands you wish to send. A list of
-available commands can be found further down.
+Next, a websocket connection should be established using `heater.init_websocket()`, followed by the commands you wish
+to send. A full list of available commands can be found further down.
 
-Below is a basic, standalone application that uses pyBurner to fetch temperature 
+Below is a simple, standalone application that uses pyBurner to fetch temperature 
 information from the Afterburner.
 ~~~python
 import pyburner
@@ -63,7 +63,7 @@ asyncio.run(main())
 
 If you wish to run the asyncio event loop in a separate thread, see 
 [examples/threading_example.py](https://github.com/ttuffin/pyBurner/blob/dev/examples/threading_example.py) as a 
-reference. Example running of the code in `threading_example.py`:
+reference. One example of running the code in `threading_example.py`:
 ~~~
 >>> import threading_example
 >>> threading_example.start_thread()
@@ -73,7 +73,7 @@ True
 ~~~
 
 When establishing the initial websocket connection, the Afterburner will send all current data to pyBurner which is then
-stored in a dictionary called `heater_data`. You can then directly access the values in the dictionary, for example:
+stored in a dictionary called `heater_data`. You may then directly access the values in the dictionary. For example:
 
 **Full dictionary**: `heater.heater_data`
 
