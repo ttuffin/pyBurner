@@ -85,7 +85,7 @@ It is possible to trigger a refresh of the entire `heater_data` dictionary by se
 that the `fetch_data()` by default does not execute a full refresh of the `heater_data` dictionary. If you need to 
 ensure that up-to-date information is retrieved, parse `refresh=True` in the `fetch_data()` call.
 
-### Commands that can be sent to the Afterburner
+### Commands
 
 ~~~
 fetch_data(request: str, refresh: bool = False)
