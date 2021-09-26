@@ -86,3 +86,19 @@ class Client:
 
     async def set_lowvoltcutout(self, low_volt_cutout: float) -> bool:
         return await self._set_config({"LowVoltCutout": low_volt_cutout})
+
+    async def set_froston(self, start_temp: float) -> bool:
+        if not min(-1, 31) < start_temp < max(-1, 31):
+            raise ValueError("Invalid FrostOn value specified. "
+                             "Only values between 0 to 30 "
+                             "are valid.")
+        else:
+            return await self._set_config({"FrostOn": start_temp})
+
+    async def set_frostrise(self, temp_rise: float) -> bool:
+        if not min(-30, 31) < temp_rise < max(-30, 31):
+            raise ValueError("Invalid FrostRise value specified. "
+                             "Only values between -30 to +30 "
+                             "are valid.")
+        else:
+            return await self._set_config({"FrostOn": temp_rise})
