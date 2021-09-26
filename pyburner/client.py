@@ -101,4 +101,4 @@ class Client:
                              "Only values between -30 to +30 "
                              "are valid.")
         else:
-            return await self._set_config({"FrostOn": temp_rise})
+            return await self._set_config({"FrostRise": temp_rise})
