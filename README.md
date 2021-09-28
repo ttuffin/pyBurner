@@ -160,3 +160,20 @@ set_lowvoltcutout(low_volt_cutout: float)
 Threshold for low voltage shutdown (unloaded)
 
 Example: `set_lowvoltcutout(11.5)`
+
+~~~
+set_froston(start_temp: float)
+~~~
+Starting temperature to activate Frost Mode. Set `start_temp` to 0 to disable Frost Mode. 
+
+Example: `set_froston(3.5)`
+
+~~~
+set_frostrise(temp_rise: float)
+~~~
+Frost Rise can be configured in one of three ways:
+0 value: Run using the usual thermostat set point, once started by the FrostOn threshold being tripped.
++ value: STOP the heater once the temperature has risen by the value over FrostOn.
+- value: RUN the heater, using the absolute value as the thermostat set point.
+
+Example: `set_frostrise(0)`
