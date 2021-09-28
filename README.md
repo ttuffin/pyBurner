@@ -172,8 +172,10 @@ Example: `set_froston(3.5)`
 set_frostrise(temp_rise: float)
 ~~~
 Frost Rise can be configured in one of three ways:
-0 value: Run using the usual thermostat set point, once started by the FrostOn threshold being tripped.
-+ value: STOP the heater once the temperature has risen by the value over FrostOn.
-- value: RUN the heater, using the absolute value as the thermostat set point.
+
+- zero value: Run the heater using the usual thermostat set point, once started by the `set_froston` threshold being 
+tripped.
+- positive value: Stop the heater once the temperature has risen by the value over `set_froston`.
+- negative value: Run the heater using the absolute value as the thermostat set point.
 
 Example: `set_frostrise(0)`
