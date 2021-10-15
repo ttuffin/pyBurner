@@ -20,10 +20,15 @@ class TestWSServer:
 
     async def handler(self, websocket, path):
         async for message in websocket:
-            message = json.loads(message)
-            if type(message) == dict:
-                self.heater_data.update(message)
-                await websocket.send(str(self.heater_data))
+            try:
+                message = json.loads(message)
+                if message == {"Refresh": 1}:
+                    await websocket.send(str(self.heater_data))
+                else:
+                    self.heater_data.update(message)
+            except json.decoder.JSONDecodeError:
+                response = "Payload must be in dictionary format"
+                await websocket.send(response)
 
     async def start_server(self):
         self._websocket = await websockets.serve(
