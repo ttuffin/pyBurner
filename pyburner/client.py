@@ -15,12 +15,13 @@ class Client:
         self._websocket = WebSocket(self.afterburner_ip)
 
     async def init_websocket(self) -> bool:
-        if self._websocket.connect():
+        if await self._websocket.connect():
             asyncio.create_task(self._websocket.run_loop(self.handler))
             return True
 
-    async def close_websocket(self) -> None:
-        await self._websocket.close_websocket()
+    async def close_websocket(self) -> bool:
+        if await self._websocket.close_websocket():
+            return True
 
     async def handler(self, messages: dict) -> None:
         output = json.loads(messages)

@@ -57,11 +57,12 @@ class WebSocket:
             except websockets.ConnectionClosedError:
                 break
 
-    async def close_websocket(self) -> None:
+    async def close_websocket(self) -> bool:
         try:
             await self._websocket.close()
             self._alive = False
             self._logger.info("Websocket connection closed")
+            return True
         except websockets.WebSocketException as e:
             self._logger.critical("A critical websocket exception occurred "
                                   "when attempting to close the websocket "
