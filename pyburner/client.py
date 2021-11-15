@@ -14,8 +14,12 @@ class Client:
     def __post_init__(self):
         self._websocket = WebSocket(self.afterburner_ip)
 
-    async def init_websocket(self) -> None:
-        await self._websocket.connect(self.handler)
+    async def init_websocket(self) -> bool:
+        asyncio.create_task(self._websocket.connect(self.handler))
+        if self._websocket.alive:
+            return True
+        else:
+            return False
 
     async def close_websocket(self) -> None:
         await self._websocket.close_websocket()

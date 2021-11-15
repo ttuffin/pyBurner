@@ -9,7 +9,7 @@ from websockets import WebSocketClientProtocol
 @dataclass
 class WebSocket:
     endpoint: str
-    _alive: bool = field(default=False, repr=False)
+    alive: bool = field(default=False, repr=False)
     _websocket: WebSocketClientProtocol = field(default=False, repr=False)
     _logger = logging.getLogger("pyBurner.websocket")
     _log_format = str = "[%(asctime)s][%(name)s][%(levelname)s] %(message)s"
@@ -33,11 +33,11 @@ class WebSocket:
         uri = self._construct_uri(self.endpoint)
         try:
             self._websocket = await websockets.connect(uri, ping_interval=None)
-            self._alive = True
+            self.alive = True
             self._logger.info("Established websocket "
                               f"connection to {self.endpoint}")
             # run forever loop
-            while self._alive:
+            while self.alive:
                 try:
                     await asyncio.wait_for(
                         self._process_messages(message_handler),
@@ -48,7 +48,7 @@ class WebSocket:
                     continue
                 except websockets.ConnectionClosedError:
                     break
-            self._alive = False
+            self.alive = False
         except (OSError, websockets.WebSocketException) as e:
             self._logger.critical("Unable to open websocket "
                                   f"connection to {self.endpoint}. "
@@ -57,7 +57,7 @@ class WebSocket:
     async def close_websocket(self) -> None:
         try:
             await self._websocket.close()
-            self._alive = False
+            self.alive = False
             self._logger.info("Websocket connection closed")
         except websockets.WebSocketException as e:
             self._logger.critical("A critical websocket exception occurred "
@@ -69,7 +69,7 @@ class WebSocket:
             await message_handler(message)
 
     async def send_to_websocket(self, query: dict) -> None:
-        if self._alive:
+        if self.alive:
             try:
                 await self._websocket.send(json.dumps(query))
                 self._logger.debug(f"Query sent: {query}")
