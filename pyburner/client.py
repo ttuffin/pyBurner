@@ -29,6 +29,7 @@ class Client:
 
     async def refresh(self) -> None:
         await self._websocket.send_to_websocket({"Refresh": 1})
+        await asyncio.sleep(2.5)
 
     async def _set_config(self, json_input: dict) -> bool:
         await self._websocket.send_to_websocket(json_input)
@@ -55,7 +56,6 @@ class Client:
     async def fetch_data(self, request: str, refresh: bool = False) -> str:
         if refresh:
             await self.refresh()
-            await asyncio.sleep(2.5)
         for key in self.heater_data:
             if key == request:
                 return str(self.heater_data[key])
