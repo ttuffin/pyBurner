@@ -29,7 +29,7 @@ class Client:
 
     async def refresh(self) -> None:
         await self._websocket.send_to_websocket({"Refresh": 1})
-        await asyncio.sleep(2.5)
+        await asyncio.sleep(2.5)  # allow time for AB to send data
 
     async def _set_config(self, json_input: dict) -> bool:
         await self._websocket.send_to_websocket(json_input)
