@@ -18,36 +18,40 @@ class WebSocket:
         uri: str = f"ws://{endpoint}"
         return uri
 
-    async def connect(self, message_handler) -> None:
+    async def connect(self) -> bool:
         uri = self._construct_uri(self.endpoint)
         try:
             self._websocket = await websockets.connect(uri, ping_interval=None)
             self._alive = True
             self._logger.info("Established websocket "
                               f"connection to {self.endpoint}")
-            # run forever loop
-            while self._alive:
-                try:
-                    await asyncio.wait_for(
-                        self._process_messages(message_handler),
-                        timeout=1.5
-                    )
-                except asyncio.TimeoutError:
-                    await asyncio.sleep(3)
-                    continue
-                except websockets.ConnectionClosedError:
-                    break
-            self._alive = False
+            return True
         except (OSError, websockets.WebSocketException) as e:
             self._logger.critical("Unable to open websocket "
                                   f"connection to {self.endpoint}. "
                                   f"The following error occurred: {e}")
+            return False
 
-    async def close_websocket(self) -> None:
+    async def run_loop(self, message_handler):
+        # run forever loop
+        while self._alive:
+            try:
+                await asyncio.wait_for(
+                    self._process_messages(message_handler),
+                    timeout=1.5
+                )
+            except asyncio.TimeoutError:
+                await asyncio.sleep(3)
+                continue
+            except websockets.ConnectionClosedError:
+                break
+
+    async def close_websocket(self) -> bool:
         try:
             await self._websocket.close()
             self._alive = False
             self._logger.info("Websocket connection closed")
+            return True
         except websockets.WebSocketException as e:
             self._logger.critical("A critical websocket exception occurred "
                                   "when attempting to close the websocket "
