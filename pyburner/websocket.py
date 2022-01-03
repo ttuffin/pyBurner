@@ -12,17 +12,6 @@ class WebSocket:
     _alive: bool = field(default=False, repr=False)
     _websocket: WebSocketClientProtocol = field(default=False, repr=False)
     _logger = logging.getLogger("pyBurner.websocket")
-    _log_format = str = "[%(asctime)s][%(name)s][%(levelname)s] %(message)s"
-
-    logging.basicConfig(
-                **{
-                    "format": _log_format,
-                    "datefmt": "%m/%d/%Y %H:%M:%S",
-                    "level": logging.INFO,
-                    "filename": "./pyburner.log",
-                    "filemode": "w",
-                }
-    )
 
     @staticmethod
     def _construct_uri(endpoint):
