@@ -62,7 +62,7 @@ asyncio.run(main())
 ~~~
 
 If you wish to run the asyncio event loop in a separate thread, see 
-[examples/threading_example.py](https://github.com/ttuffin/pyBurner/blob/dev/examples/threading_example.py) as a 
+[examples/threading_example.py](https://github.com/ttuffin/pyBurner/blob/main/examples/threading_example.py) as a 
 reference. One example of running the code in `threading_example.py`:
 ~~~
 >>> import threading_example
