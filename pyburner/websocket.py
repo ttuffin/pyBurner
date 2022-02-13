@@ -41,7 +41,7 @@ class WebSocket:
                     timeout=1.5
                 )
             except asyncio.TimeoutError:
-                await asyncio.sleep(3)
+                await asyncio.sleep(1)
                 continue
             except websockets.ConnectionClosedError:
                 break
