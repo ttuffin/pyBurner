@@ -27,6 +27,7 @@ class WSServer:
                 elif message == {"Run": 1}:
                     self.heater_data.update({"RunState": 9})
                 else:
+                    message = {k: v for k, v in message.items() if k in self.heater_data.keys()}
                     self.heater_data.update(message)
             except json.decoder.JSONDecodeError:
                 response = "Payload must be in dictionary format"
